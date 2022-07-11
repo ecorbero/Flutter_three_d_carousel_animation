@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:hovering/hovering.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(const MyApp());
 
@@ -12,12 +14,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       darkTheme:
-      ThemeData(platform: TargetPlatform.iOS, brightness: Brightness.dark),
+          ThemeData(platform: TargetPlatform.iOS, brightness: Brightness.dark),
       home: const RotationScene(),
     );
   }
 }
-
 
 const List _photos = [
   'assets/1.png',
@@ -30,6 +31,19 @@ const List _photos = [
   'assets/8.png',
   'assets/9.png',
 ];
+
+const List _webUrls = [
+  'https://flutter1.io',
+  'https://flutter2.io',
+  'https://flutter3.io',
+  'https://flutter4.io',
+  'https://flutter5.io',
+  'https://flutter6.io',
+  'https://flutter7.io',
+  'https://flutter8.io',
+  'https://flutter9.io',
+];
+
 class RotationScene extends StatefulWidget {
   const RotationScene({Key? key}) : super(key: key);
 
@@ -38,10 +52,194 @@ class RotationScene extends StatefulWidget {
 }
 
 class _RotationSceneState extends State<RotationScene> {
+  final _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      key: _key,
+      // Add App bar
+      appBar: AppBar(
+        leading: Icon(Icons.home),
+        title: Text('Page title'),
+        /*
+        actions: const [
+          Icon(Icons.favorite),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Icon(Icons.search),
+          ),
+          Icon(Icons.more_vert),
+        ],
+        */
+        //backgroundColor: Color.fromARGB(255, 20, 98, 109),
+      ),
       body: Center(child: MyScener()),
+      // Add bottom bar
+      bottomNavigationBar: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            ElevatedButton(
+              child: HoverWidget(
+                hoverChild: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Icon(
+                        Icons.auto_stories_outlined,
+                        color: Color.fromARGB(255, 0, 53, 96),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(2.0),
+                      child: Text(
+                        "Privacy policy",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0, 53, 96),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                onHover: (event) {},
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Icon(
+                        Icons.auto_stories_rounded,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(2.0),
+                      child: Text(
+                        "Privacy policy",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              onPressed: () {},
+            ),
+            ElevatedButton(
+              child: HoverWidget(
+                hoverChild: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Icon(
+                        Icons.list_alt_rounded,
+                        color: Color.fromARGB(255, 0, 53, 96),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(2.0),
+                      child: Text(
+                        "Terms & Conditions",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0, 53, 96),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                onHover: (event) {},
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Icon(
+                        Icons.list,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(2.0),
+                      child: Text(
+                        "Terms & Conditions",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              onPressed: () {},
+            ),
+            ElevatedButton(
+              child: HoverWidget(
+                hoverChild: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Icon(
+                        Icons.email_outlined,
+                        color: Color.fromARGB(255, 0, 53, 96),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(2.0),
+                      child: Text(
+                        "Contact",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0, 53, 96),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                onHover: (event) {},
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Icon(
+                        Icons.email_rounded,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(2.0),
+                      child: Text(
+                        "Contact",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              onPressed: () {},
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -114,11 +312,7 @@ class _MyScenerState extends State<MyScener>
       c.x = cos(ang) * radio;
 //      c.y = sin(ang) * 10;
       c.z = sin(ang) * radio;
-
-
-
     }
-
 
     // sort in Z axis.
     cardData.sort((a, b) => a.z!.compareTo(b.z!));
@@ -136,7 +330,6 @@ class _MyScenerState extends State<MyScener>
         child: c,
       );
 
-
       return c;
     }).toList();
 
@@ -153,32 +346,44 @@ class _MyScenerState extends State<MyScener>
     var alpha = ((1 - vo.z! / radio) / 2) * .6;
     Widget c;
     c = Container(
-      margin: const EdgeInsets.all(12),
-      width: 120,
-      height: 250,
-      alignment: Alignment.center,
-      foregroundDecoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: Colors.black.withOpacity(alpha),
-      ),
-      decoration: BoxDecoration(
-        // gradient: LinearGradient(
-        //   begin: Alignment.topLeft,
-        //   end: Alignment.bottomRight,
-        //   stops: [0.1, .9],
-        //   colors: [vo.lightColor, vo.color],
-        // ),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-              color: Colors.black.withOpacity(.2 + alpha * .2),
-              spreadRadius: 1,
-              blurRadius: 12,
-              offset: const Offset(0, 2))
-        ],
-      ),
-      child:  Image.asset(_photos[vo.idx]), // Text('ITEM ${vo.idx}'),
-    );
+        margin: const EdgeInsets.all(12),
+        width: 120,
+        height: 250,
+        alignment: Alignment.center,
+        foregroundDecoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Colors.black.withOpacity(alpha),
+        ),
+        decoration: BoxDecoration(
+          // gradient: LinearGradient(
+          //   begin: Alignment.topLeft,
+          //   end: Alignment.bottomRight,
+          //   stops: [0.1, .9],
+          //   colors: [vo.lightColor, vo.color],
+          // ),
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black.withOpacity(.2 + alpha * .2),
+                spreadRadius: 1,
+                blurRadius: 12,
+                offset: const Offset(0, 2))
+          ],
+        ),
+        child: GestureDetector(
+          onTap: () async {
+            final Uri _url = Uri.parse(_webUrls[vo.idx]);
+            print(_url);
+            if (!await launchUrl(_url)) throw 'Could not launch $_url';
+          }, //_launchURL(_webUrls[vo.idx]),
+          child: Image.asset(_photos[vo.idx]),
+        ) // Text('ITEM ${vo.idx}'),
+        );
     return c;
   }
+}
+
+_launchURL(String enterWeburl) async {
+  final Uri _url = Uri.parse(enterWeburl);
+  if (!await launchUrl(_url)) throw 'Could not launch $_url';
 }
